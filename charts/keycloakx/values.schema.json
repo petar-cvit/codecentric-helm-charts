@@ -56,60 +56,42 @@
       "additionalProperties": false,
       "properties": {
         "database": {
-          "default": "",
           "title": "database",
-          "type": "null"
+          "type": "string"
         },
         "existingSecret": {
-          "default": "",
           "description": "don't create secret for db password. Instead use existing k8s secret\nexistingSecret: \"my-existent-dbpass-secret\"\nexistingSecretKey: \"password\"",
           "title": "existingSecret",
           "type": "string"
         },
         "existingSecretKey": {
-          "default": "",
           "title": "existingSecretKey",
           "type": "string"
         },
         "hostname": {
-          "default": "",
           "title": "hostname",
-          "type": "null"
+          "type": "string"
         },
         "password": {
-          "default": "",
           "title": "password",
-          "type": "null"
+          "type": "string"
         },
         "port": {
-          "default": "",
           "title": "port",
-          "type": "null"
+          "type": "string"
         },
         "username": {
-          "default": "",
           "title": "username",
-          "type": "null"
+          "type": "string"
         },
         "vendor": {
-          "default": "",
           "description": "E.g. dev-file, dev-mem, mariadb, mssql, mysql, oracle or postgres",
           "title": "vendor",
-          "type": "null"
+          "type": "string"
         }
       },
       "title": "database",
-      "type": "object",
-      "required": [
-        "existingSecret",
-        "existingSecretKey",
-        "vendor",
-        "hostname",
-        "port",
-        "database",
-        "username",
-        "password"
-      ]
+      "type": "object"
     },
     "dbchecker": {
       "additionalProperties": false,
@@ -142,12 +124,7 @@
             }
           },
           "title": "image",
-          "type": "object",
-          "required": [
-            "repository",
-            "tag",
-            "pullPolicy"
-          ]
+          "type": "object"
         },
         "resources": {
           "additionalProperties": false,
@@ -167,11 +144,7 @@
                 }
               },
               "title": "limits",
-              "type": "object",
-              "required": [
-                "cpu",
-                "memory"
-              ]
+              "type": "object"
             },
             "requests": {
               "additionalProperties": false,
@@ -188,20 +161,12 @@
                 }
               },
               "title": "requests",
-              "type": "object",
-              "required": [
-                "cpu",
-                "memory"
-              ]
+              "type": "object"
             }
           },
           "description": "Resource requests and limits for the dbchecker container",
           "title": "resources",
-          "type": "object",
-          "required": [
-            "requests",
-            "limits"
-          ]
+          "type": "object"
         },
         "securityContext": {
           "additionalProperties": false,
@@ -229,23 +194,11 @@
           },
           "description": "SecurityContext for the dbchecker container",
           "title": "securityContext",
-          "type": "object",
-          "required": [
-            "allowPrivilegeEscalation",
-            "runAsUser",
-            "runAsGroup",
-            "runAsNonRoot"
-          ]
+          "type": "object"
         }
       },
       "title": "dbchecker",
-      "type": "object",
-      "required": [
-        "enabled",
-        "image",
-        "securityContext",
-        "resources"
-      ]
+      "type": "object"
     },
     "enableServiceLinks": {
       "type": "boolean"
