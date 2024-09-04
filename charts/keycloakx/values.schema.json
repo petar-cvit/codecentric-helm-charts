@@ -52,6 +52,201 @@
     "command": {
       "type": "array"
     },
+    "database": {
+      "additionalProperties": false,
+      "properties": {
+        "database": {
+          "default": "",
+          "title": "database",
+          "type": "null"
+        },
+        "existingSecret": {
+          "default": "",
+          "description": "don't create secret for db password. Instead use existing k8s secret\nexistingSecret: \"my-existent-dbpass-secret\"\nexistingSecretKey: \"password\"",
+          "title": "existingSecret",
+          "type": "string"
+        },
+        "existingSecretKey": {
+          "default": "",
+          "title": "existingSecretKey",
+          "type": "string"
+        },
+        "hostname": {
+          "default": "",
+          "title": "hostname",
+          "type": "null"
+        },
+        "password": {
+          "default": "",
+          "title": "password",
+          "type": "null"
+        },
+        "port": {
+          "default": "",
+          "title": "port",
+          "type": "null"
+        },
+        "username": {
+          "default": "",
+          "title": "username",
+          "type": "null"
+        },
+        "vendor": {
+          "default": "",
+          "description": "E.g. dev-file, dev-mem, mariadb, mssql, mysql, oracle or postgres",
+          "title": "vendor",
+          "type": "null"
+        }
+      },
+      "title": "database",
+      "type": "object",
+      "required": [
+        "existingSecret",
+        "existingSecretKey",
+        "vendor",
+        "hostname",
+        "port",
+        "database",
+        "username",
+        "password"
+      ]
+    },
+    "dbchecker": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "image": {
+          "additionalProperties": false,
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "Image pull policy for the dbchecker image",
+              "title": "pullPolicy",
+              "type": "string"
+            },
+            "repository": {
+              "default": "docker.io/busybox",
+              "description": "Docker image used to check Database readiness at startup",
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": 1.32,
+              "description": "Image tag for the dbchecker image",
+              "title": "tag",
+              "type": "number"
+            }
+          },
+          "title": "image",
+          "type": "object",
+          "required": [
+            "repository",
+            "tag",
+            "pullPolicy"
+          ]
+        },
+        "resources": {
+          "additionalProperties": false,
+          "properties": {
+            "limits": {
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "default": "20m",
+                  "title": "cpu",
+                  "type": "string"
+                },
+                "memory": {
+                  "default": "32Mi",
+                  "title": "memory",
+                  "type": "string"
+                }
+              },
+              "title": "limits",
+              "type": "object",
+              "required": [
+                "cpu",
+                "memory"
+              ]
+            },
+            "requests": {
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "default": "20m",
+                  "title": "cpu",
+                  "type": "string"
+                },
+                "memory": {
+                  "default": "32Mi",
+                  "title": "memory",
+                  "type": "string"
+                }
+              },
+              "title": "requests",
+              "type": "object",
+              "required": [
+                "cpu",
+                "memory"
+              ]
+            }
+          },
+          "description": "Resource requests and limits for the dbchecker container",
+          "title": "resources",
+          "type": "object",
+          "required": [
+            "requests",
+            "limits"
+          ]
+        },
+        "securityContext": {
+          "additionalProperties": false,
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "runAsGroup": {
+              "default": 1000,
+              "title": "runAsGroup",
+              "type": "integer"
+            },
+            "runAsNonRoot": {
+              "default": true,
+              "title": "runAsNonRoot",
+              "type": "boolean"
+            },
+            "runAsUser": {
+              "default": 1000,
+              "title": "runAsUser",
+              "type": "integer"
+            }
+          },
+          "description": "SecurityContext for the dbchecker container",
+          "title": "securityContext",
+          "type": "object",
+          "required": [
+            "allowPrivilegeEscalation",
+            "runAsUser",
+            "runAsGroup",
+            "runAsNonRoot"
+          ]
+        }
+      },
+      "title": "dbchecker",
+      "type": "object",
+      "required": [
+        "enabled",
+        "image",
+        "securityContext",
+        "resources"
+      ]
+    },
     "enableServiceLinks": {
       "type": "boolean"
     },
@@ -507,6 +702,12 @@
       "tolerations": {
         "type": "array"
       }
+    },
+    "secrets": {
+      "additionalProperties": false,
+      "description": "Configuration for secrets that should be created",
+      "title": "secrets",
+      "type": "object"
     }
   }
 }
